@@ -11,6 +11,7 @@ interface NewslyApi {
     suspend fun getNews(
         @Query("page") page: Int,
         @Query("sources") sources: String,
+//        @Query("country") country: String = "india",
         @Query("apiKey") apiKey: String = API_KEY
     ): NewslyResponse
 }

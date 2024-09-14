@@ -1,8 +1,11 @@
 package com.example.newsly.data.remote
 
+import android.util.Log
+import androidx.paging.LOG_TAG
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.newsly.domain.model.News
+import kotlinx.coroutines.delay
 
 
 class NewslyPagingSource(
@@ -17,8 +20,9 @@ class NewslyPagingSource(
 
         return try {
             val newsResponse = newslyApi.getNews(sources = sources, page = page)
-            totalNewsCount += newsResponse.listOfNews.size
-            val listOfNews = newsResponse.listOfNews.distinctBy { it.title } // Remove Duplicates
+            delay(2000)
+            totalNewsCount += newsResponse.articles.size
+            val listOfNews = newsResponse.articles.distinctBy { it.title } // Remove Duplicates
             LoadResult.Page(
                 data = listOfNews,
                 nextKey = if (totalNewsCount == newsResponse.totalResults) null else page + 1,

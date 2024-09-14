@@ -1,4 +1,4 @@
-package com.loc.newsapp.presentation.nvgraph
+package com.example.newsly.presentation.nvgraph
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -6,26 +6,26 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import com.loc.newsapp.presentation.bookmark.BookmarkScreen
-import com.loc.newsapp.presentation.bookmark.BookmarkViewModel
-import com.loc.newsapp.presentation.news_navigator.NewsNavigator
-import com.loc.newsapp.presentation.onboarding.OnBoardingScreen
-import com.loc.newsapp.presentation.onboarding.OnBoardingViewModel
+import com.example.newsly.presentation.home.HomeViewModel
+import com.example.newsly.presentation.news_navigator.NewslyNavigator
+
 
 @Composable
 fun NavGraph(
-    startDestination: String
 ) {
     val navController = rememberNavController()
+    val homeViewModel: HomeViewModel = hiltViewModel()
 
-    NavHost(navController = navController, startDestination = Route.HomeScreen.route) {
+    NavHost(navController = navController, startDestination = homeViewModel.startDestination) {
 
         navigation(
-            route = Route.NewsNavigation.route,
-            startDestination = Route.NewsNavigatorScreen.route
+            route = homeViewModel.startDestination,
+            startDestination = Route.HomeScreen.route
         ) {
-            composable(route = Route.NewsNavigatorScreen.route) {
-                NewsNavigator()
+            composable(route = Route.HomeScreen.route) {
+                NewslyNavigator(
+                    homeViewModel = homeViewModel
+                )
             }
         }
     }

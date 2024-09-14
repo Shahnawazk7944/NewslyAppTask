@@ -1,9 +1,16 @@
 package com.example.newsly.domain.usecases
 
+import android.util.Log
 import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.newsly.domain.model.News
 import com.example.newsly.domain.repository.NewslyRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 
 data class NewslyUseCases(
@@ -17,7 +24,7 @@ data class NewslyUseCases(
 class BookmarkNews(
     private val newslyRepository: NewslyRepository
 ) {
-    suspend operator fun invoke(news: News){
+    suspend operator fun invoke(news: News) {
         newslyRepository.bookmarkNews(news)
     }
 }
@@ -26,7 +33,7 @@ class IsNewsBookmarked(
     private val newslyRepository: NewslyRepository
 ) {
 
-    suspend operator fun invoke(url: String): News?{
+    suspend operator fun invoke(url: String): News? {
         return newslyRepository.isNewsBookmarked(url)
     }
 
@@ -35,7 +42,7 @@ class IsNewsBookmarked(
 class GetBookmarkedNews(
     private val newslyRepository: NewslyRepository
 ) {
-    operator fun invoke(): Flow<List<News>>{
+    operator fun invoke(): Flow<List<News>> {
         return newslyRepository.getBookmarkedNews()
     }
 }
@@ -43,15 +50,15 @@ class GetBookmarkedNews(
 class GetNews(
     private val newslyRepository: NewslyRepository
 ) {
-    operator fun invoke(sources: List<String>): Flow<PagingData<News>>{
-        return newslyRepository.getNews(sources = sources)
+    operator fun invoke(sources: List<String>): Flow<PagingData<News>> {
+        return newslyRepository.getNews(sources)
     }
 }
 
 class DeleteNews(
     private val newslyRepository: NewslyRepository
 ) {
-    suspend operator fun invoke(news: News){
+    suspend operator fun invoke(news: News) {
         newslyRepository.deleteNews(news)
     }
 }

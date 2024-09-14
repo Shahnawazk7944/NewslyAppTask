@@ -1,4 +1,4 @@
-package com.loc.newsapp.presentation.common
+package com.example.newsly.presentation.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,12 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.newsly.domain.model.News
-import com.loc.newsapp.domain.model.Article
 import com.loc.newsapp.presentation.Dimens.ExtraSmallPadding2
 import com.loc.newsapp.presentation.Dimens.MediumPadding1
 
 @Composable
-fun ArticlesList(
+fun NewsListForBookmark(
     modifier: Modifier = Modifier,
     articles: List<News>,
     onClick: (News) -> Unit
@@ -28,27 +27,27 @@ fun ArticlesList(
     ) {
         items(count = articles.size) {
             val article = articles[it]
-            ArticleCard(article = article, onClick = { onClick(article) })
+            NewsCard(news = article, onClick = { onClick(article) })
         }
     }
 }
 
 @Composable
-fun ArticlesList(
+fun NewsList(
     modifier: Modifier = Modifier,
-    articles: LazyPagingItems<News>,
+    listOfNews: LazyPagingItems<News>,
     onClick: (News) -> Unit
 ) {
-    val handlePagingResult = handlePagingResult(articles = articles)
+    val handlePagingResult = handlePagingResult(articles = listOfNews)
     if (handlePagingResult) {
         LazyColumn(
             modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(MediumPadding1),
             contentPadding = PaddingValues(all = ExtraSmallPadding2)
         ) {
-            items(count = articles.itemCount) {
-                articles[it]?.let {
-                    ArticleCard(article = it, onClick = { onClick(it) })
+            items(count = listOfNews.itemCount) {
+                listOfNews[it]?.let {
+                    NewsCard(news = it, onClick = { onClick(it) })
                 }
             }
         }

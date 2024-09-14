@@ -21,17 +21,18 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.loc.newsapp.R
-import com.loc.newsapp.domain.model.Article
-import com.loc.newsapp.domain.model.Source
+import com.example.newsly.domain.model.News
+import com.example.newsly.domain.model.Source
+import com.example.newsly.presentation.details.components.DetailsTopBar
+import com.example.newsly.presentation.nvgraph.Route.DetailsScreen
+import com.example.newsly.ui.theme.NewslyTheme
+import com.example.newsly.ui.theme.spacing
 import com.loc.newsapp.presentation.Dimens.ArticleImageHeight
-import com.loc.newsapp.presentation.Dimens.MediumPadding1
-import com.loc.newsapp.presentation.details.components.DetailsTopBar
-import com.loc.newsapp.ui.theme.NewsAppTheme
+
 
 @Composable
 fun NewsDetailsScreen(
-    article: Article,
+    news: News,
     event: (NewsDetailsEvent) -> Unit,
     navigateUp: () -> Unit
 ) {
@@ -46,7 +47,7 @@ fun NewsDetailsScreen(
         DetailsTopBar(
             onBrowsingClick = {
                 Intent(Intent.ACTION_VIEW).also {
-                    it.data = Uri.parse(article.url)
+                    it.data = Uri.parse(news.url)
                     if (it.resolveActivity(context.packageManager) != null) {
                         context.startActivity(it)
                     }
@@ -54,29 +55,29 @@ fun NewsDetailsScreen(
             },
             onShareClick = {
                 Intent(Intent.ACTION_SEND).also {
-                    it.putExtra(Intent.EXTRA_TEXT, article.url)
+                    it.putExtra(Intent.EXTRA_TEXT, news.url)
                     it.type = "text/plain"
                     if (it.resolveActivity(context.packageManager) != null) {
                         context.startActivity(it)
                     }
                 }
             },
-            onBookmarkClick = { event(NewsDetailsEvent.BookmarkOrDeleteNews(article)) },
+            onBookmarkClick = { event(NewsDetailsEvent.BookmarkOrDeleteNews(news)) },
             onBackClick = navigateUp
         )
 
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(
-                start = MediumPadding1,
-                end = MediumPadding1,
-                top = MediumPadding1
+                start = MaterialTheme.spacing.extraLarge,
+                end = MaterialTheme.spacing.extraLarge,
+                top = MaterialTheme.spacing.extraLarge
             )
         ) {
             item {
 
                 AsyncImage(
-                    model = ImageRequest.Builder(context = context).data(article.urlToImage)
+                    model = ImageRequest.Builder(context = context).data(news.urlToImage)
                         .build(),
                     contentDescription = null,
                     modifier = Modifier
@@ -86,22 +87,18 @@ fun NewsDetailsScreen(
                     contentScale = ContentScale.Crop
                 )
 
-                Spacer(modifier = Modifier.height(MediumPadding1))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraLarge))
 
                 Text(
-                    text = article.title,
+                    text = news.title,
                     style = MaterialTheme.typography.displaySmall,
-                    color = colorResource(
-                        id = R.color.text_title
-                    )
+                    color = MaterialTheme.colorScheme.primary
                 )
 
                 Text(
-                    text = article.content,
+                    text = news.content,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = colorResource(
-                        id = R.color.body
-                    )
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             }
         }
@@ -112,9 +109,9 @@ fun NewsDetailsScreen(
 @Preview(showBackground = true)
 @Composable
 fun DetailsScreenPreview() {
-    NewsAppTheme(dynamicColor = false) {
-        DetailsScreen(
-            article = Article(
+    NewslyTheme(dynamicColor = false) {
+        NewsDetailsScreen(
+            news = News(
                 author = "",
                 title = "Coinbase says Apple blocked its last app release on NFTs in Wallet ... - CryptoSaurus",
                 description = "Coinbase says Apple blocked its last app release on NFTs in Wallet ... - CryptoSaurus",

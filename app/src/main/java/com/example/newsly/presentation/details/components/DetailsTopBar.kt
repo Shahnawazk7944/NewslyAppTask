@@ -19,8 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.loc.newsapp.R
-import com.loc.newsapp.ui.theme.NewsAppTheme
+import com.example.newsly.R
+import com.example.newsly.ui.theme.NewslyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,13 +36,13 @@ fun DetailsTopBar(
         modifier = Modifier.fillMaxWidth(),
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = Color.Transparent,
-            actionIconContentColor = colorResource(id = R.color.body),
-            navigationIconContentColor = colorResource(id = R.color.body),
+            actionIconContentColor = MaterialTheme.colorScheme.primary,
+            navigationIconContentColor = MaterialTheme.colorScheme.primary,
         ),
         navigationIcon = {
             IconButton(onClick = onBackClick) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_back_arrow),
+                    painter = painterResource(id = R.drawable.arrow_back),
                     contentDescription = null
                 )
             }
@@ -50,7 +50,7 @@ fun DetailsTopBar(
         actions = {
             IconButton(onClick = onBookmarkClick) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_bookmark),
+                    painter = painterResource(id = R.drawable.fav_icon),
                     contentDescription = null
                 )
             }
@@ -62,7 +62,7 @@ fun DetailsTopBar(
             }
             IconButton(onClick = onBrowsingClick) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_network),
+                    painter = painterResource(id = R.drawable.network),
                     contentDescription = null
                 )
             }
@@ -74,7 +74,7 @@ fun DetailsTopBar(
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun DetailsTopBarPreivew() {
-    NewsAppTheme {
+    NewslyTheme {
         Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
             DetailsTopBar(
                 onBrowsingClick = { /*TODO*/ },

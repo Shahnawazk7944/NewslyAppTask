@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.example.newsly.domain.model.News
-import com.loc.newsapp.presentation.Dimens.MediumPadding1
-import com.loc.newsapp.presentation.common.ArticlesList
+import com.example.newsly.presentation.common.NewsListForBookmark
+import com.example.newsly.ui.theme.spacing
 
 
 @Composable
@@ -25,7 +25,7 @@ fun BookmarkScreen(
         modifier = Modifier
             .fillMaxSize()
             .statusBarsPadding()
-            .padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1)
+            .padding(top = MaterialTheme.spacing.extraLarge, start = MaterialTheme.spacing.extraLarge, end = MaterialTheme.spacing.extraLarge)
     ) {
         Text(
             text = "Bookmark",
@@ -33,8 +33,8 @@ fun BookmarkScreen(
             color = MaterialTheme.colorScheme.primary
         )
 
-        Spacer(modifier = Modifier.height(MediumPadding1))
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraLarge))
 
-        ArticlesList(articles = state.listOfBookmarkedNews, onClick = { navigateToDetails(it) })
+        NewsListForBookmark(articles = state.listOfBookmarkedNews, onClick = { navigateToDetails(it) })
     }
 }

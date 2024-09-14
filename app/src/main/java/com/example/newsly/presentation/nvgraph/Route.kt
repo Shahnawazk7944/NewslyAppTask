@@ -1,4 +1,4 @@
-package com.loc.newsapp.presentation.nvgraph
+package com.example.newsly.presentation.nvgraph
 
 sealed class Route(
     val route: String
@@ -7,5 +7,5 @@ sealed class Route(
     object BookmarkScreen : Route(route = "bookmarkScreen")
     object DetailsScreen : Route(route = "detailsScreen")
     object NewsNavigation : Route(route = "newsNavigation")
-    object NewsNavigatorScreen : Route(route = "newsNavigator")
+    object NewslyStartDestination : Route(route = "newslyStartDestination")
 }

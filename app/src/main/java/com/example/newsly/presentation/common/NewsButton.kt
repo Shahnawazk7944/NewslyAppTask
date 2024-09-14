@@ -1,4 +1,5 @@
-package com.loc.newsapp.presentation.common
+/*
+package com.example.newsly.presentation.common
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -47,6 +48,7 @@ fun NewsTextButton(
     }
 }
 
+*/
 
 
 
