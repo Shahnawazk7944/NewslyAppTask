@@ -1,6 +1,5 @@
 package com.example.newsly.presentation.news_navigator
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -121,6 +121,7 @@ fun NewslyNavigator(
 
             composable(route = Route.DetailsScreen.route) {
                 val viewModel: NewsDetailsViewModel = hiltViewModel()
+                val state by viewModel.isBookmarkedState.collectAsStateWithLifecycle()
                 if (viewModel.sideEffect != null) {
                     Toast.makeText(LocalContext.current, viewModel.sideEffect, Toast.LENGTH_SHORT)
                         .show()
@@ -132,7 +133,7 @@ fun NewslyNavigator(
                             news = news,
                             event = viewModel::onEvent,
                             navigateUp = { navController.navigateUp() },
-                            isBookmarked = viewModel.isBookmarked
+                            isBookmarked = viewModel.isBookmarkedState.value.isBookmarked
                         )
                     }
             }
