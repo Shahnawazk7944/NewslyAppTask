@@ -22,9 +22,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.newsly.domain.model.News
 import com.example.newsly.ui.theme.NewslyTheme
 import com.example.newsly.ui.theme.spacing
 import com.loc.newsapp.presentation.Dimens
@@ -46,7 +46,7 @@ fun Modifier.shimmerEffect() = composed {
 
 
 @Composable
-fun ArticleCardShimmerEffect(
+fun NewsCardShimmerEffect(
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -81,7 +81,7 @@ fun ArticleCardShimmerEffect(
             Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
             Box(
                 modifier = Modifier
-                    .fillMaxWidth(.7f)
+                    .fillMaxWidth(1f)
                     .height(20.dp)
                     .padding(horizontal = MaterialTheme.spacing.extraSmall)
                     .clip(MaterialTheme.shapes.extraSmall)
@@ -141,7 +141,7 @@ fun ArticleCardShimmerEffect(
             Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
             Box(
                 modifier = Modifier
-                    .fillMaxWidth(.7f)
+                    .fillMaxWidth(1f)
                     .height(20.dp)
                     .padding(horizontal = MaterialTheme.spacing.extraSmall)
                     .clip(MaterialTheme.shapes.extraSmall)
@@ -177,11 +177,83 @@ fun ArticleCardShimmerEffect(
     }
 }
 
+
+@Composable
+fun BookmarkCardShimmerEffect(
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .height(270.dp)
+            .fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .padding(vertical = MaterialTheme.spacing.extraSmall),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(Dimens.ArticleCardSize)
+                    .clip(MaterialTheme.shapes.medium)
+                    .shimmerEffect()
+            )
+            Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp)
+                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                    .clip(MaterialTheme.shapes.extraSmall)
+                    .shimmerEffect()
+            )
+            Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(1f)
+                    .height(20.dp)
+                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                    .clip(MaterialTheme.shapes.extraSmall)
+                    .shimmerEffect()
+            )
+
+            Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                //horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(MaterialTheme.shapes.extraSmall)
+                        .height(20.dp)
+                        .shimmerEffect()
+                )
+                Spacer(modifier = Modifier.width(MaterialTheme.spacing.large))
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(MaterialTheme.shapes.extraSmall)
+                        .height(20.dp)
+                        .shimmerEffect()
+                )
+            }
+        }
+
+    }
+}
+
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-fun ArticleCardShimmerEffectPreview() {
+fun NewsCardShimmerEffectPreview() {
     NewslyTheme {
-        ArticleCardShimmerEffect()
+        NewsCardShimmerEffect()
     }
 }

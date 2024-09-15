@@ -6,7 +6,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -29,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import com.example.newsly.R
+import com.example.newsly.ui.theme.spacing
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 
@@ -44,7 +47,7 @@ fun EmptyScreen(error: LoadState.Error? = null) {
     }
 
     if (error == null) {
-        message = "You have not saved news so far !"
+        message = "No saved news yet !"
         icon = R.drawable.search_document
     }
 
@@ -53,8 +56,8 @@ fun EmptyScreen(error: LoadState.Error? = null) {
     }
 
     val alphaAnimation by animateFloatAsState(
-        targetValue = if (startAnimation) 0.3f else 0f,
-        animationSpec = tween(durationMillis = 1000), label = ""
+        targetValue = if (startAnimation) 0.6f else 0f,
+        animationSpec = tween(durationMillis = 4000), label = ""
     )
 
     LaunchedEffect(key1 = true) {
@@ -75,18 +78,19 @@ fun EmptyContent(alphaAnim: Float, message: String, iconId: Int) {
         Icon(
             painter = painterResource(id = iconId),
             contentDescription = null,
-            tint = if (isSystemInDarkTheme()) LightGray else DarkGray,
+            tint = MaterialTheme.colorScheme.secondary,
             modifier = Modifier
                 .size(120.dp)
                 .alpha(alphaAnim)
         )
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.large))
         Text(
             modifier = Modifier
                 .padding(10.dp)
                 .alpha(alphaAnim),
             text = message,
-            style = MaterialTheme.typography.bodyMedium,
-            color = if (isSystemInDarkTheme()) LightGray else DarkGray,
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.secondary,
         )
     }
 }

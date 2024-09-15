@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
         private set
 
     val news = newslyUseCases.getNews(
-        sources = listOf("TechCrunch","apple","bbc-news")
+        sources = listOf("TechCrunch","Socket.dev","Digital Trends","Www.gtf.io","IndieWire","Github.io")
     ).cachedIn(viewModelScope)
 
 

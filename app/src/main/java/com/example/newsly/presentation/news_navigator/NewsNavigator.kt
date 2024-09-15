@@ -45,7 +45,7 @@ fun NewslyNavigator(
     val bottomNavigationItems = remember {
         listOf(
             BottomNavigationItem(icon = R.drawable.fav_icon, text = "Bookmarks"),
-            BottomNavigationItem(icon = R.drawable.home_icon, text = "Home")
+            BottomNavigationItem(icon = R.drawable.home_icon, text = "News")
         )
     }
 
@@ -97,7 +97,7 @@ fun NewslyNavigator(
         val bottomPadding = it.calculateBottomPadding()
         NavHost(
             navController = navController,
-            startDestination = Route.HomeScreen.route,
+            startDestination = Route.BookmarkScreen.route,
             modifier = Modifier.padding(bottom = bottomPadding)
         ) {
             composable(route = Route.HomeScreen.route) {
@@ -140,7 +140,7 @@ fun NewslyNavigator(
 
             composable(route = Route.BookmarkScreen.route) {
                 val viewModel: BookmarkViewModel = hiltViewModel()
-                val state = viewModel.state.value
+                val state by viewModel.state.collectAsStateWithLifecycle()
                 BookmarkScreen(state = state, navigateToDetails = { news ->
                     navigateToDetails(navController = navController, news = news)
                 })

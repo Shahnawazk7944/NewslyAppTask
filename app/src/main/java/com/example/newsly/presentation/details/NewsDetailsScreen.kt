@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -102,7 +103,7 @@ fun NewsDetailsScreen(
                     overflow = TextOverflow.Ellipsis
                 )
 
-                Spacer(modifier = Modifier.height(MaterialTheme.spacing.large))
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraLarge))
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
                     NewsDetailsButton(painterResource(R.drawable.share), content ="Share"){
                         Intent(Intent.ACTION_SEND).also {
@@ -113,6 +114,7 @@ fun NewsDetailsScreen(
                             }
                         }
                     }
+                    Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
                     NewsDetailsButton(painterResource(R.drawable.network), content = "Read More"){
                         Intent(Intent.ACTION_VIEW).also {
                             it.data = Uri.parse(news.url)
