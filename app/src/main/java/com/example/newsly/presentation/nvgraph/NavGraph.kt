@@ -20,9 +20,9 @@ fun NavGraph(
 
         navigation(
             route = homeViewModel.startDestination,
-            startDestination = Route.HomeScreen.route
+            startDestination = Route.BookmarkScreen.route
         ) {
-            composable(route = Route.HomeScreen.route) {
+            composable(route = Route.BookmarkScreen.route) {
                 NewslyNavigator(
                     homeViewModel = homeViewModel
                 )

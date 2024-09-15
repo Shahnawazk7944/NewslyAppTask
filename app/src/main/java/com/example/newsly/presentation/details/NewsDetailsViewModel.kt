@@ -8,6 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsly.domain.model.News
 import com.example.newsly.domain.usecases.NewslyUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,8 +22,9 @@ class NewsDetailsViewModel @Inject constructor(
     var sideEffect by mutableStateOf<String?>(null)
         private set
 
-    var isBookmarked by mutableStateOf<Boolean>(false)
-        private set
+    private var _isBookmarkedState =
+        MutableStateFlow(NewsDetailsStates())
+    val isBookmarkedState = _isBookmarkedState.asStateFlow()
 
     fun onEvent(event: NewsDetailsEvent) {
         when (event) {
@@ -29,8 +33,19 @@ class NewsDetailsViewModel @Inject constructor(
                     val isNewsBookmarked = newsUseCases.isNewsBookmarked(event.news.url)
                     if (isNewsBookmarked == null) {
                         bookmarkNews(event.news)
+                        _isBookmarkedState.update {
+                            it.copy(
+                                isBookmarked = true
+                            )
+                        }
                     } else {
                         deleteNews(event.news)
+                        _isBookmarkedState.update {
+                            it.copy(
+                                isBookmarked = false
+                            )
+                        }
+
                     }
                 }
             }
@@ -42,7 +57,11 @@ class NewsDetailsViewModel @Inject constructor(
             is NewsDetailsEvent.IsBookmarked -> {
                 viewModelScope.launch {
                     val isNewsBookmarked = newsUseCases.isNewsBookmarked(event.news.url)
-                    isBookmarked = isNewsBookmarked != null
+                    _isBookmarkedState.update {
+                        it.copy(
+                            isBookmarked = isNewsBookmarked != null
+                        )
+                    }
                 }
             }
         }
@@ -50,12 +69,15 @@ class NewsDetailsViewModel @Inject constructor(
 
     private suspend fun deleteNews(news: News) {
         newsUseCases.deleteNews(news = news)
-        sideEffect = "News Deleted"
+        sideEffect = "Removed From Bookmarks"
     }
 
     private suspend fun bookmarkNews(news: News) {
         newsUseCases.bookmarkNews(news = news)
-        sideEffect = "News Saved"
+        sideEffect = "Added To Bookmarks"
     }
 
 }
+data class NewsDetailsStates(
+    val isBookmarked: Boolean = false,
+)

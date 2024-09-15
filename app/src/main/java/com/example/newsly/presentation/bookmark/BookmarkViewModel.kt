@@ -6,8 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsly.domain.usecases.NewslyUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,11 +20,16 @@ class BookmarkViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _state = mutableStateOf(BookmarkState())
-    val state: State<BookmarkState> = _state
+    private val _state = MutableStateFlow(BookmarkState())
+    val state = _state.asStateFlow()
 
     init {
-        getBookmarkedNews()
+        viewModelScope.launch {
+            _state.value = _state.value.copy(loading = true)
+            delay(4000)
+            getBookmarkedNews()
+            _state.value = _state.value.copy(loading = false)
+        }
     }
 
     private fun getBookmarkedNews() {

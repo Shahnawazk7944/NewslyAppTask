@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.example.newsly.domain.model.News
+import com.example.newsly.presentation.common.BookmarkShimmerEffect
+import com.example.newsly.presentation.common.EmptyScreen
 import com.example.newsly.presentation.common.NewsListForBookmark
 import com.example.newsly.ui.theme.spacing
 
@@ -21,20 +23,35 @@ fun BookmarkScreen(
     state: BookmarkState,
     navigateToDetails: (News) -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding()
-            .padding(top = MaterialTheme.spacing.extraLarge, start = MaterialTheme.spacing.extraLarge, end = MaterialTheme.spacing.extraLarge)
-    ) {
-        Text(
-            text = "Bookmarks",
-            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-            color = MaterialTheme.colorScheme.primary
-        )
 
-        Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraLarge))
+    if (state.loading) {
+        BookmarkShimmerEffect()
+    } else {
+        if (state.listOfBookmarkedNews.isNotEmpty()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .statusBarsPadding()
+                    .padding(
+                        top = MaterialTheme.spacing.extraLarge,
+                        start = MaterialTheme.spacing.extraLarge,
+                        end = MaterialTheme.spacing.extraLarge
+                    )
+            ) {
+                Text(
+                    text = "Bookmarks",
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.primary
+                )
 
-        NewsListForBookmark(articles = state.listOfBookmarkedNews, onClick = { navigateToDetails(it) })
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraLarge))
+
+                NewsListForBookmark(
+                    articles = state.listOfBookmarkedNews,
+                    onClick = { navigateToDetails(it) })
+            }
+        } else {
+            EmptyScreen()
+        }
     }
 }

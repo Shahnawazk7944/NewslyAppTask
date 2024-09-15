@@ -3,20 +3,23 @@ package com.example.newsly.presentation.common
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.newsly.domain.model.News
 import com.example.newsly.ui.theme.spacing
-import com.loc.newsapp.presentation.Dimens.MediumPadding1
 
 @Composable
 fun NewsListForBookmark(
@@ -75,12 +78,12 @@ fun handlePagingResult(
 
     return when {
         loadState.refresh is LoadState.Loading -> {
-            ShimmerEffect()
+            NewsShimmerEffect()
             false
         }
 
         error != null -> {
-            EmptyScreen()
+            EmptyScreen(error)
             false
         }
 
@@ -92,11 +95,37 @@ fun handlePagingResult(
 }
 
 @Composable
-private fun ShimmerEffect() {
-    Column(verticalArrangement = Arrangement.spacedBy(MediumPadding1)) {
+private fun NewsShimmerEffect() {
+    Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraLarge)) {
         repeat(10) {
-            ArticleCardShimmerEffect(
-                modifier = Modifier.padding(horizontal = MediumPadding1)
+            NewsCardShimmerEffect(
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.extraLarge)
+            )
+        }
+    }
+}
+
+@Composable
+fun BookmarkShimmerEffect() {
+    Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraLarge),
+        modifier = Modifier
+        .fillMaxSize()
+        .statusBarsPadding()
+        .padding(
+            top = MaterialTheme.spacing.extraLarge,
+        )) {
+        Text(
+            text = "Bookmarks",
+            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier
+                .padding(
+                    start = MaterialTheme.spacing.extraLarge,
+                )
+        )
+        repeat(10) {
+            BookmarkCardShimmerEffect(
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.extraLarge)
             )
         }
     }
