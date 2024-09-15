@@ -2,6 +2,7 @@ package com.example.newsly.ui.theme
 
 import android.app.Activity
 import android.os.Build
+import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -9,7 +10,13 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = primaryDark,
@@ -24,6 +31,7 @@ private val DarkColorScheme = darkColorScheme(
     onTertiary = onTertiaryDark,
     tertiaryContainer = tertiaryContainerDark,
     onTertiaryContainer = onTertiaryContainerDark,
+    background = backgroundDark,
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -39,15 +47,18 @@ private val LightColorScheme = lightColorScheme(
     onTertiary = onTertiaryLight,
     tertiaryContainer = tertiaryContainerLight,
     onTertiaryContainer = onTertiaryContainerLight,
+    background = backgroundLight,
 )
 
 @Composable
 fun NewslyTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
+
+    Log.d("check", "isSystemInDarkTheme: $darkTheme")
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -57,7 +68,6 @@ fun NewslyTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
-
     MaterialTheme(
         colorScheme = colorScheme,
         typography = myTypography(),

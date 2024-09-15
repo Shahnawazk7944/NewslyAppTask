@@ -17,7 +17,7 @@ class NewslyPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, News> {
         val page = params.key ?: 1
-
+       // delay(5000)
         return try {
             val newsResponse = newslyApi.getNews(sources = sources, page = page)
             delay(2000)

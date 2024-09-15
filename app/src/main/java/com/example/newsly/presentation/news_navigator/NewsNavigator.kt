@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,8 +44,8 @@ fun NewslyNavigator(
 
     val bottomNavigationItems = remember {
         listOf(
-            BottomNavigationItem(icon = R.drawable.home_icon, text = "Home"),
-            BottomNavigationItem(icon = R.drawable.fav_icon, text = "Bookmark")
+            BottomNavigationItem(icon = R.drawable.fav_icon, text = "Bookmarks"),
+            BottomNavigationItem(icon = R.drawable.home_icon, text = "Home")
         )
     }
 
@@ -56,8 +57,8 @@ fun NewslyNavigator(
 
     selectedItem = remember(key1 = backstackState) {
         when (backstackState?.destination?.route) {
-            Route.HomeScreen.route -> 0
-            Route.BookmarkScreen.route -> 1
+            Route.BookmarkScreen.route -> 0
+            Route.HomeScreen.route -> 1
             else -> 0
         }
     }
@@ -69,6 +70,7 @@ fun NewslyNavigator(
     }
 
     Scaffold(
+       containerColor = MaterialTheme.colorScheme.background,
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             if (isBottomBarVisible) {
@@ -79,12 +81,12 @@ fun NewslyNavigator(
                         when (index) {
                             0 -> navigateToTap(
                                 navController = navController,
-                                route = Route.HomeScreen.route
+                                route = Route.BookmarkScreen.route
                             )
 
                             1 -> navigateToTap(
                                 navController = navController,
-                                route = Route.BookmarkScreen.route
+                                route = Route.HomeScreen.route
                             )
                         }
                     }
@@ -129,7 +131,9 @@ fun NewslyNavigator(
                         NewsDetailsScreen(
                             news = news,
                             event = viewModel::onEvent,
-                            navigateUp = { navController.navigateUp() })
+                            navigateUp = { navController.navigateUp() },
+                            isBookmarked = viewModel.isBookmarked
+                        )
                     }
             }
 

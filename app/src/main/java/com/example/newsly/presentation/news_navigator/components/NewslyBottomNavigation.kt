@@ -20,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.newsly.ui.theme.NewslyTheme
-import com.loc.newsapp.presentation.Dimens.ExtraSmallPadding2
 import com.loc.newsapp.presentation.Dimens.IconSize
 import com.example.newsly.R
 
@@ -39,6 +38,11 @@ fun NewslyBottomNavigation(
             NavigationBarItem(
                 selected = index == selected,
                 onClick = { onItemClick(index) },
+                label = {
+                    Text(
+                        text = item.text,
+                        style = MaterialTheme.typography.titleSmall
+                    )},
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
                         Icon(
@@ -46,16 +50,14 @@ fun NewslyBottomNavigation(
                             contentDescription = null,
                             modifier = Modifier.size(IconSize)
                         )
-                        Spacer(modifier = Modifier.height(ExtraSmallPadding2))
-                        Text(text = item.text, style = MaterialTheme.typography.labelSmall)
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.primary,
-                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    selectedIconColor = MaterialTheme.colorScheme.onSecondary,
+                    selectedTextColor = MaterialTheme.colorScheme.secondary,
                     unselectedIconColor = MaterialTheme.colorScheme.secondary,
                     unselectedTextColor = MaterialTheme.colorScheme.secondary,
-                    indicatorColor = MaterialTheme.colorScheme.background
+                    indicatorColor = MaterialTheme.colorScheme.secondary
                 )
             )
         }
@@ -74,8 +76,8 @@ fun NewsBottomNavigationPreview() {
     NewslyTheme {
         NewslyBottomNavigation(
             items = listOf(
-                BottomNavigationItem(icon = R.drawable.home_icon, text = "Home"),
-                BottomNavigationItem(icon = R.drawable.fav_icon, text = "Bookmark")),
+                BottomNavigationItem(icon = R.drawable.fav_icon, text = "Bookmark"),
+                BottomNavigationItem(icon = R.drawable.home_icon, text = "Home")),
                 selected = 0,
                 onItemClick = {}
             )

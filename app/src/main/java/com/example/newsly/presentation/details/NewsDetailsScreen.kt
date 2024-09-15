@@ -1,5 +1,6 @@
 package com.example.newsly.presentation.details
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -30,12 +32,17 @@ import com.example.newsly.ui.theme.spacing
 import com.loc.newsapp.presentation.Dimens.ArticleImageHeight
 
 
+@SuppressLint("QueryPermissionsNeeded")
 @Composable
 fun NewsDetailsScreen(
     news: News,
     event: (NewsDetailsEvent) -> Unit,
-    navigateUp: () -> Unit
+    navigateUp: () -> Unit,
+    isBookmarked: Boolean
 ) {
+    LaunchedEffect(key1 = true) {
+        event(NewsDetailsEvent.IsBookmarked(news))
+    }
 
     val context = LocalContext.current
 
@@ -63,7 +70,8 @@ fun NewsDetailsScreen(
                 }
             },
             onBookmarkClick = { event(NewsDetailsEvent.BookmarkOrDeleteNews(news)) },
-            onBackClick = navigateUp
+            onBackClick = navigateUp,
+            isBookmarked = isBookmarked
         )
 
         LazyColumn(
@@ -109,7 +117,7 @@ fun NewsDetailsScreen(
 @Preview(showBackground = true)
 @Composable
 fun DetailsScreenPreview() {
-    NewslyTheme(dynamicColor = false) {
+    NewslyTheme() {
         NewsDetailsScreen(
             news = News(
                 author = "",
@@ -123,10 +131,10 @@ fun DetailsScreenPreview() {
                 url = "https://consent.google.com/ml?continue=https://news.google.com/rss/articles/CBMiaWh0dHBzOi8vY3J5cHRvc2F1cnVzLnRlY2gvY29pbmJhc2Utc2F5cy1hcHBsZS1ibG9ja2VkLWl0cy1sYXN0LWFwcC1yZWxlYXNlLW9uLW5mdHMtaW4td2FsbGV0LXJldXRlcnMtY29tL9IBAA?oc%3D5&gl=FR&hl=en-US&cm=2&pc=n&src=1",
                 urlToImage = "https://media.wired.com/photos/6495d5e893ba5cd8bbdc95af/191:100/w_1280,c_limit/The-EU-Rules-Phone-Batteries-Must-Be-Replaceable-Gear-2BE6PRN.jpg"
             ),
-            event = {}
-        ) {
-
-        }
+            event = {},
+            isBookmarked = true,
+            navigateUp = {}
+        )
     }
 }
 

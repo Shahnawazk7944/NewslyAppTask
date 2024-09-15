@@ -28,8 +28,8 @@ fun BookmarkScreen(
             .padding(top = MaterialTheme.spacing.extraLarge, start = MaterialTheme.spacing.extraLarge, end = MaterialTheme.spacing.extraLarge)
     ) {
         Text(
-            text = "Bookmark",
-            style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold),
+            text = "Bookmarks",
+            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.primary
         )
 

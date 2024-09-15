@@ -1,11 +1,13 @@
 package com.example.newsly.presentation.common
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -33,6 +35,7 @@ import com.example.newsly.ui.theme.spacing
 import com.loc.newsapp.presentation.Dimens.ArticleCardSize
 
 
+
 @Composable
 fun NewsCard(
     modifier: Modifier = Modifier,
@@ -41,11 +44,15 @@ fun NewsCard(
 ) {
     val context = LocalContext.current
 
-    Row(modifier = modifier.clickable { onClick() }) {
-
+    Column(
+        modifier = modifier
+            .clickable { onClick() }
+            .fillMaxWidth() // Ensure card takes full width in the grid
+    ) {
         AsyncImage(
             modifier = Modifier
-                .size(ArticleCardSize)
+                .fillMaxWidth()
+                .height(ArticleCardSize)
                 .clip(MaterialTheme.shapes.medium),
             model = ImageRequest.Builder(context).data(news.urlToImage).build(),
             contentDescription = null,
@@ -53,46 +60,39 @@ fun NewsCard(
         )
 
         Column(
-            verticalArrangement = Arrangement.SpaceAround,
             modifier = Modifier
-                .padding(horizontal = MaterialTheme.spacing.extraSmall)
-                .height(
-                    ArticleCardSize
-                )
+                .padding(vertical = MaterialTheme.spacing.extraSmall)
+
         ) {
             Text(
                 text = news.title,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(top = MaterialTheme.spacing.small)
+            ) {
                 Text(
                     text = news.source.name,
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.secondary
                 )
 
-                Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-                Icon(
-                    imageVector = Icons.Filled.AccessTime, contentDescription = null,
-                    modifier = Modifier.size(MaterialTheme.spacing.medium),
-                    tint = MaterialTheme.colorScheme.secondary
-                )
-                Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+                Spacer(modifier = Modifier.width(MaterialTheme.spacing.large))
                 Text(
                     text = news.publishedAt,
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.secondary
+                    color = MaterialTheme.colorScheme.secondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
-
         }
-
     }
-
 }
 
 @Preview(showBackground = true)

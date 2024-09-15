@@ -19,6 +19,9 @@ class NewsDetailsViewModel @Inject constructor(
     var sideEffect by mutableStateOf<String?>(null)
         private set
 
+    var isBookmarked by mutableStateOf<Boolean>(false)
+        private set
+
     fun onEvent(event: NewsDetailsEvent) {
         when (event) {
             is NewsDetailsEvent.BookmarkOrDeleteNews -> {
@@ -34,6 +37,13 @@ class NewsDetailsViewModel @Inject constructor(
 
             is NewsDetailsEvent.RemoveSideEffect -> {
                 sideEffect = null
+            }
+
+            is NewsDetailsEvent.IsBookmarked -> {
+                viewModelScope.launch {
+                    val isNewsBookmarked = newsUseCases.isNewsBookmarked(event.news.url)
+                    isBookmarked = isNewsBookmarked != null
+                }
             }
         }
     }
