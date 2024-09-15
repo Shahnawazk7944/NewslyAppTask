@@ -40,7 +40,8 @@ fun Modifier.shimmerEffect() = composed {
             repeatMode = RepeatMode.Reverse
         ), label = ""
     ).value
-    background(color = Color.LightGray.copy(alpha = alpha))
+   // background(color = Color.LightGray.copy(alpha = alpha))
+    background(color = MaterialTheme.colorScheme.tertiary.copy(alpha = alpha))
 }
 
 
@@ -50,7 +51,7 @@ fun ArticleCardShimmerEffect(
 ) {
     Row(
         modifier = modifier
-            .height(230.dp)
+            .height(270.dp)
             .fillMaxWidth()
     ) {
 

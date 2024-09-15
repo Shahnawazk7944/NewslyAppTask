@@ -58,7 +58,7 @@ internal fun myTypography(): Typography {
         ),
         titleMedium = defaultTypography.titleMedium.copy(
             fontFamily = outfitFontFamily,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Normal,//Changes made here
         ),
         titleSmall = defaultTypography.titleSmall.copy(
             fontFamily = outfitFontFamily,

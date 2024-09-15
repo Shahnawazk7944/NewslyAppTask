@@ -44,8 +44,8 @@ fun NewslyNavigator(
 
     val bottomNavigationItems = remember {
         listOf(
-            BottomNavigationItem(icon = R.drawable.home_icon, text = "Home"),
-            BottomNavigationItem(icon = R.drawable.fav_icon, text = "Bookmarks")
+            BottomNavigationItem(icon = R.drawable.fav_icon, text = "Bookmarks"),
+            BottomNavigationItem(icon = R.drawable.home_icon, text = "Home")
         )
     }
 
@@ -57,8 +57,8 @@ fun NewslyNavigator(
 
     selectedItem = remember(key1 = backstackState) {
         when (backstackState?.destination?.route) {
-            Route.HomeScreen.route -> 0
-            Route.BookmarkScreen.route -> 1
+            Route.BookmarkScreen.route -> 0
+            Route.HomeScreen.route -> 1
             else -> 0
         }
     }
@@ -81,12 +81,12 @@ fun NewslyNavigator(
                         when (index) {
                             0 -> navigateToTap(
                                 navController = navController,
-                                route = Route.HomeScreen.route
+                                route = Route.BookmarkScreen.route
                             )
 
                             1 -> navigateToTap(
                                 navController = navController,
-                                route = Route.BookmarkScreen.route
+                                route = Route.HomeScreen.route
                             )
                         }
                     }
@@ -131,7 +131,9 @@ fun NewslyNavigator(
                         NewsDetailsScreen(
                             news = news,
                             event = viewModel::onEvent,
-                            navigateUp = { navController.navigateUp() })
+                            navigateUp = { navController.navigateUp() },
+                            isBookmarked = viewModel.isBookmarked
+                        )
                     }
             }
 

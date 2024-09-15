@@ -1,6 +1,7 @@
 package com.example.newsly.presentation.common
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -61,11 +62,12 @@ fun NewsCard(
         Column(
             modifier = Modifier
                 .padding(vertical = MaterialTheme.spacing.extraSmall)
+
         ) {
             Text(
                 text = news.title,
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.tertiaryContainer,
+                color = MaterialTheme.colorScheme.primary,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
@@ -80,18 +82,13 @@ fun NewsCard(
                     color = MaterialTheme.colorScheme.secondary
                 )
 
-                Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-                Icon(
-                    imageVector = Icons.Filled.AccessTime,
-                    contentDescription = null,
-                    modifier = Modifier.size(MaterialTheme.spacing.medium),
-                    tint = MaterialTheme.colorScheme.secondary
-                )
-                Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+                Spacer(modifier = Modifier.width(MaterialTheme.spacing.large))
                 Text(
                     text = news.publishedAt,
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.secondary
+                    color = MaterialTheme.colorScheme.secondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }

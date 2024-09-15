@@ -16,7 +16,6 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.newsly.domain.model.News
 import com.example.newsly.ui.theme.spacing
-import com.loc.newsapp.presentation.Dimens.ExtraSmallPadding2
 import com.loc.newsapp.presentation.Dimens.MediumPadding1
 
 @Composable
@@ -27,8 +26,8 @@ fun NewsListForBookmark(
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(MediumPadding1),
-        contentPadding = PaddingValues(all = ExtraSmallPadding2)
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraLarge),
+        contentPadding = PaddingValues(all = MaterialTheme.spacing.small)
     ) {
         items(count = articles.size) {
             val article = articles[it]

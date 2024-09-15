@@ -20,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.newsly.ui.theme.NewslyTheme
-import com.loc.newsapp.presentation.Dimens.ExtraSmallPadding2
 import com.loc.newsapp.presentation.Dimens.IconSize
 import com.example.newsly.R
 
@@ -77,8 +76,8 @@ fun NewsBottomNavigationPreview() {
     NewslyTheme {
         NewslyBottomNavigation(
             items = listOf(
-                BottomNavigationItem(icon = R.drawable.home_icon, text = "Home"),
-                BottomNavigationItem(icon = R.drawable.fav_icon, text = "Bookmark")),
+                BottomNavigationItem(icon = R.drawable.fav_icon, text = "Bookmark"),
+                BottomNavigationItem(icon = R.drawable.home_icon, text = "Home")),
                 selected = 0,
                 onItemClick = {}
             )

@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 //internal val primaryLight = Color(0xFF58B234)
 //internal val primaryLight = Color(0xFF5f0f40)
-internal val primaryLight = Color(0xFF0077b6)
+internal val primaryLight = Color(0xFF023e8a)
 internal val onPrimaryLight = Color(0xFFcae9ff)
 internal val secondaryLight = Color(0xFF590d22)
 internal val onSecondaryLight = Color(0xFFfdfcdc)
@@ -21,8 +21,8 @@ internal val backgroundLight = Color(0xFFDCF6FF)
 
 
 //Dark theme colors
-internal val primaryDark = Color(0xFF0077b6)
-internal val onPrimaryDark = Color(0xFFcae9ff)
+internal val primaryDark = Color(0xFFcae9ff)
+internal val onPrimaryDark = Color(0xFF023e8a)
 internal val secondaryDark = Color(0xFFfdfcdc)
 internal val onSecondaryDark = Color(0xFF262A30)
 internal val tertiaryDark = Color(0xFFa1cca5)
