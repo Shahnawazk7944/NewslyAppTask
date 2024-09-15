@@ -39,6 +39,11 @@ fun NewslyBottomNavigation(
             NavigationBarItem(
                 selected = index == selected,
                 onClick = { onItemClick(index) },
+                label = {
+                    Text(
+                        text = item.text,
+                        style = MaterialTheme.typography.titleSmall
+                    )},
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
                         Icon(
@@ -46,16 +51,14 @@ fun NewslyBottomNavigation(
                             contentDescription = null,
                             modifier = Modifier.size(IconSize)
                         )
-                        Spacer(modifier = Modifier.height(ExtraSmallPadding2))
-                        Text(text = item.text, style = MaterialTheme.typography.labelSmall)
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.primary,
-                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    selectedIconColor = MaterialTheme.colorScheme.onSecondary,
+                    selectedTextColor = MaterialTheme.colorScheme.secondary,
                     unselectedIconColor = MaterialTheme.colorScheme.secondary,
                     unselectedTextColor = MaterialTheme.colorScheme.secondary,
-                    indicatorColor = MaterialTheme.colorScheme.background
+                    indicatorColor = MaterialTheme.colorScheme.secondary
                 )
             )
         }

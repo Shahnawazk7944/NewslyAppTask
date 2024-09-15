@@ -6,11 +6,16 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.newsly.domain.model.News
+import com.example.newsly.ui.theme.spacing
 import com.loc.newsapp.presentation.Dimens.ExtraSmallPadding2
 import com.loc.newsapp.presentation.Dimens.MediumPadding1
 
@@ -40,12 +45,14 @@ fun NewsList(
 ) {
     val handlePagingResult = handlePagingResult(articles = listOfNews)
     if (handlePagingResult) {
-        LazyColumn(
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2), // Display items in two columns
             modifier = modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(MediumPadding1),
-            contentPadding = PaddingValues(all = ExtraSmallPadding2)
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
+            contentPadding = PaddingValues(all = MaterialTheme.spacing.extraSmall)
         ) {
-            items(count = listOfNews.itemCount) {
+            items(listOfNews.itemCount) {
                 listOfNews[it]?.let {
                     NewsCard(news = it, onClick = { onClick(it) })
                 }

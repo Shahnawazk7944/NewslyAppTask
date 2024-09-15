@@ -7,14 +7,15 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,44 +48,130 @@ fun Modifier.shimmerEffect() = composed {
 fun ArticleCardShimmerEffect(
     modifier: Modifier = Modifier
 ) {
-
-    Row(modifier = modifier) {
-
-        Box(
-            modifier = Modifier
-                .size(Dimens.ArticleCardSize)
-                .clip(MaterialTheme.shapes.medium)
-                .shimmerEffect(),
-
-            )
+    Row(
+        modifier = modifier
+            .height(230.dp)
+            .fillMaxWidth()
+    ) {
 
         Column(
-            verticalArrangement = Arrangement.SpaceAround,
             modifier = Modifier
-                .padding(horizontal = Dimens.ExtraSmallPadding)
-                .height(
-                    Dimens.ArticleCardSize
-                )
+                .weight(1f)
+                .fillMaxHeight()
+                .padding(vertical = MaterialTheme.spacing.extraSmall),
+            horizontalAlignment = Alignment.Start
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(30.dp)
-                    .padding(horizontal = MaterialTheme.spacing.extraLarge)
-                    .shimmerEffect(),
+                    .height(Dimens.ArticleCardSize)
+                    .clip(MaterialTheme.shapes.medium)
+                    .shimmerEffect()
+            )
+            Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp)
+                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                    .clip(MaterialTheme.shapes.extraSmall)
+                    .shimmerEffect()
+            )
+            Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(.7f)
+                    .height(20.dp)
+                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                    .clip(MaterialTheme.shapes.extraSmall)
+                    .shimmerEffect()
             )
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                //horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(MaterialTheme.shapes.extraSmall)
+                        .height(20.dp)
+                        .shimmerEffect()
+                )
+                Spacer(Modifier.width(MaterialTheme.spacing.extraSmall))
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(MaterialTheme.shapes.extraSmall)
+                        .height(20.dp)
+                        .shimmerEffect()
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.width(MaterialTheme.spacing.medium))
+
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(vertical = MaterialTheme.spacing.extraSmall)
+                .weight(1f)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(Dimens.ArticleCardSize)
+                    .clip(MaterialTheme.shapes.medium)
+                    .shimmerEffect()
+            )
+            Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp)
+                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                    .clip(MaterialTheme.shapes.extraSmall)
+                    .shimmerEffect()
+            )
+            Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(.7f)
+                    .height(20.dp)
+                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                    .clip(MaterialTheme.shapes.extraSmall)
+                    .shimmerEffect()
+            )
+
+            Spacer(Modifier.height(MaterialTheme.spacing.extraSmall))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.extraSmall)
+            ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
-                        .height(15.dp)
-                        .padding(horizontal = MaterialTheme.spacing.extraLarge)
-                        .shimmerEffect(),
+                        .weight(1f)
+                        .height(20.dp)
+                        .clip(MaterialTheme.shapes.extraSmall)
+                        .shimmerEffect()
+                )
+                Spacer(Modifier.width(MaterialTheme.spacing.extraSmall))
+                Box(
+                    modifier = Modifier
+                        .clip(MaterialTheme.shapes.extraSmall)
+                        .weight(1f)
+                        .height(20.dp)
+
+                        .shimmerEffect()
                 )
             }
-
         }
+
 
     }
 }

@@ -5,6 +5,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -38,9 +39,9 @@ fun HomeScreen(
 
     Column(
         modifier = Modifier
+            .statusBarsPadding()
             .fillMaxSize()
             .padding(top = MaterialTheme.spacing.large)
-            .statusBarsPadding()
     ) {
         Image(
             painter = painterResource(id = if(isSystemInDarkTheme())

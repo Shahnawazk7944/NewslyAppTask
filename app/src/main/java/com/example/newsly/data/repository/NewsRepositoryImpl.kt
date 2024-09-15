@@ -9,6 +9,7 @@ import com.example.newsly.data.remote.NewslyApi
 import com.example.newsly.data.remote.NewslyPagingSource
 import com.example.newsly.domain.model.News
 import com.example.newsly.domain.repository.NewslyRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 
 

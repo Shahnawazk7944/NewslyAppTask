@@ -109,7 +109,7 @@ fun NewsDetailsScreen(
 @Preview(showBackground = true)
 @Composable
 fun DetailsScreenPreview() {
-    NewslyTheme(dynamicColor = false) {
+    NewslyTheme() {
         NewsDetailsScreen(
             news = News(
                 author = "",
